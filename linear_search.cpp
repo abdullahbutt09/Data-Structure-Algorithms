@@ -8,7 +8,7 @@ int main()
     int size = sizeof(arr) / sizeof(int);
 
     int target = 100;
-    int count = 0; // tell you that how much iterations he do to find the element!
+    int count = 0; // Tell you that how much iterations he do to find the element!
     bool check = false;
 
     for (int i = 0; i < size; i++)
