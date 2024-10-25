@@ -15,7 +15,7 @@ void LinkedListTraversal(struct Node* ptr)
         ptr = ptr->next;
     }
     
-};
+}
 
 int main()
 {
