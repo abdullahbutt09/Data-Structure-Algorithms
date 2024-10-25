@@ -1,4 +1,4 @@
-// insertion after node
+// insertion after node.
 #include <iostream>
 using namespace std;
 
