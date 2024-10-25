@@ -23,8 +23,13 @@ struct node *InsertBeginning(struct node *head)
     node *new_node = new node();
     new_node->data = 55689; // New data to be inserted
     new_node->next = head;  // Point new node's next to current head
-    head = new_node;        // Update head to new node
-    return head;            // Return new head
+    return new_node;        // return pointer as a new head!
+    
+    // head has been updated so you return that pointer or if you dont want to return the pointer you can assign head = new_node then return the head which is discussed down.
+
+    // 🔽🔽🔽🔽🔽
+    // head = new_node;        // Update head to new node
+    // return head;            // Return new head
 }
 
 void CleanUpMemory(node *&head)

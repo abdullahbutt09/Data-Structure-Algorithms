@@ -1,4 +1,4 @@
-// insertion at deleting
+// insertion at ending
 #include <iostream>
 using namespace std;
 
