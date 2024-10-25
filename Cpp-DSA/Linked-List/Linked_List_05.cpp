@@ -15,7 +15,7 @@ struct Node *InsertAfterNode(struct Node *previos_node, struct Node *head)
     new_node->next = previos_node->next; // connecting old node with next.
     previos_node->next = new_node;       // now connecting prevoius_node to the new node.
 
-    // add some more and clear explanation.😶
+    // add some more and clear explanation.
 
     return head;
 }
