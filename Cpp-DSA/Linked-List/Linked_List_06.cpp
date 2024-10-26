@@ -1,4 +1,4 @@
-//linked list deletion.
+//linked list deletion -> deleting first node.
 #include <iostream>
 using namespace std;
 
@@ -15,6 +15,13 @@ void LinkedListTraversal(struct Node *ptr)
         cout << ptr->data << endl;
         ptr = ptr->next;
     }
+}
+
+void DeletingFirstNode(struct Node * &head){
+    struct Node * ptr = head;
+    head = head->next;
+    delete ptr;
+    // free(ptr);
 }
 
 int main()
@@ -35,9 +42,12 @@ int main()
     two->next = three;
 
     three->data = 56;
-    three->next = NULL; // NULL indicates that the list END!
-
-    LinkedListTraversal(head); // Function for printing the stored elements in linked-list by giving head to it and traversing to the NULL means -> head != NULL;
+    three->next = NULL; 
+    cout << "Linked List before deleting the first node"<<endl;
+    LinkedListTraversal(head); 
+    DeletingFirstNode(head);
+    cout << "Linked List after deleting the first node" << endl;
+    LinkedListTraversal(head);
 
     return 0;
 }
