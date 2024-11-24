@@ -58,13 +58,6 @@ void InsertNode()
         } while (temp->next != head);
         temp->next = new_node;
         new_node->next = head;
-        // node *temp = head;
-        // while (temp->next != head)
-        // {
-        //     temp = temp->next;
-        // }
-        // temp->next = new_node; 
-        // new_node->next = head;
 
         cout << "Element insertion on last successfull!" << endl;
         cout << endl;
