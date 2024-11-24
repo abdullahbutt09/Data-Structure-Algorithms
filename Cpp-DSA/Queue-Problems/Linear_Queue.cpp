@@ -77,23 +77,23 @@ void DisplayTheQueue(queue *myqueue)
     }
 }
 
-// void ReversingQueue(queue *myqueue)
-// {
-//     int left = myqueue->front, right = myqueue->back;
+void ReversingQueue(queue *myqueue)
+{
+    int left = myqueue->front, right = myqueue->back;
 
-//     // Reverse the elements between front and back
-//     while (left < right)
-//     {
-//         // Swap the elements at left and right indices
-//         int temp = myqueue->arr[left];
-//         myqueue->arr[left] = myqueue->arr[right];
-//         myqueue->arr[right] = temp;
+    // Reverse the elements between front and back
+    while (left < right)
+    {
+        // Swap the elements at left and right indices
+        int temp = myqueue->arr[left];
+        myqueue->arr[left] = myqueue->arr[right];
+        myqueue->arr[right] = temp;
 
-//         // Move the pointers towards the center
-//         left++;
-//         right--;
-//     }
-// }
+        // Move the pointers towards the center
+        left++;
+        right--;
+    }
+}
 
 int main()
 {
