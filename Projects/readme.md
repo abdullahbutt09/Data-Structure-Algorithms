@@ -1,2 +1,3 @@
-This folder contains my projects based on DSA
-    --> Mostly used language you found C/C++
+# Projects bases on DSA
+
+## Mostly used programming languages C/C++:
