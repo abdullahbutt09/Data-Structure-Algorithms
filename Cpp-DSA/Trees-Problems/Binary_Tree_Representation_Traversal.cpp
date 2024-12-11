@@ -36,6 +36,14 @@ int main()
     tree *NewNode5 = CreateNode(5);
     tree *NewNode6 = CreateNode(6);
     tree *NewNode7 = CreateNode(7);
+    tree *NewNode8 = CreateNode(8);
+    tree *NewNode9 = CreateNode(9);
+    tree *NewNode10 = CreateNode(10);
+    tree *NewNode11 = CreateNode(11);
+    tree *NewNode12 = CreateNode(12);
+    tree *NewNode13 = CreateNode(13);
+    tree *NewNode14 = CreateNode(14);
+    tree *NewNode15 = CreateNode(15);
 
     NewNode1->left = NewNode2;
     NewNode1->right = NewNode3;
@@ -43,6 +51,14 @@ int main()
     NewNode2->right = NewNode5;
     NewNode3->left = NewNode6;
     NewNode3->right = NewNode7;
+    NewNode4->left = NewNode8;
+    NewNode4->right = NewNode9;
+    NewNode5->left = NewNode10;
+    NewNode5->right = NewNode11;
+    NewNode6->left = NewNode12;
+    NewNode6->right = NewNode13;
+    NewNode7->left = NewNode14;
+    NewNode7->right = NewNode15;
 
     PreOrderTraversal(NewNode1);
     return 0;
