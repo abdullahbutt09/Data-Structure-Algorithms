@@ -6,15 +6,13 @@
 #include <string>
 using namespace std;
 
-class ClassOfUsers
+class ClassOfMenu
 {
 protected:
-    bool virtual Register() = 0;
-    bool virtual Login() = 0;
-    void virtual Menu() = 0;
+    virtual void Menu() = 0;
 };
 
-class ClassOfProducts
+class Functions_Of_Stores_Related_Products
 {
 protected:
     struct Product
@@ -26,11 +24,6 @@ protected:
         int quantity;
         int sold;
     };
-};
-
-class Functions_Of_Stores_Related_Products : virtual protected ClassOfProducts
-{
-protected:
     struct Store
     {
         string storeName;
@@ -43,7 +36,8 @@ protected:
         int ratingCount;
         stack<string> messages;
     };
-    unordered_map<string, Store> stores; // Keyed by Store CNIC
+
+    static unordered_map<string, Store> stores;
 
 public:
     void addProduct(string storeCNIC)
@@ -201,15 +195,10 @@ public:
         }
         return true;
     }
-};
 
-class Functions_Of_Stores_Related_Stores : virtual protected ClassOfProducts, virtual protected Functions_Of_Stores_Related_Products
-{
-    protected:
-        string storeName, ownerName, cnic, password;
-public:
-    bool Register()
+    bool RegisterStore()
     {
+        string storeName, ownerName, cnic, password;
         cout << "Enter Store Name: ";
         cin >> storeName;
         cout << "Enter Owner Name: ";
@@ -364,9 +353,11 @@ public:
         }
         return true;
     }
+
+    // void Menu() {}
 };
 
-class ClassOfBuyer : protected Functions_Of_Stores_Related_Stores, virtual protected ClassOfUsers
+class ClassOfBuyer : virtual protected Functions_Of_Stores_Related_Products, protected ClassOfMenu
 {
 protected:
     struct Buyer
@@ -379,7 +370,7 @@ protected:
     unordered_map<string, Buyer> buyers; // Keyed by CNIC
 
 public:
-    void Menu() 
+    void Menu()
     {
         string storeCNIC, buyerCNIC = "";
 
@@ -396,7 +387,7 @@ public:
             switch (choice)
             {
             case 1:
-                Register();
+                RegisterBuyer();
                 break;
             case 2:
                 if (!Login())
@@ -455,7 +446,7 @@ public:
         } while (choice != 0);
     }
 
-    bool Register()
+    bool RegisterBuyer()
     {
         string name, cnic, password;
         float balance;
@@ -607,98 +598,16 @@ public:
     }
 };
 
-class ClassOfAdmin : protected Functions_Of_Stores_Related_Stores
+unordered_map<string, Functions_Of_Stores_Related_Products::Store>
+    Functions_Of_Stores_Related_Products::stores;
+
+class ClassOfSeller : protected Functions_Of_Stores_Related_Products, protected ClassOfMenu
 {
 protected:
-        string cnic;
-        int choice;
+    string storeCNIC, storePassword;
+
 public:
-    void Menu() 
-    {
-        do
-        {
-            cout << "\nAdmin Menu\n";
-            cout << "1. Add Store\n";
-            cout << "2. View All Stores\n";
-            cout << "3. Delete a Store\n";
-            cout << "4. Delete all Stores\n";
-            cout << "5. Send message to a store\n";
-            cout << "0. Logout\n";
-            cout << endl;
-            cout << "Enter your choice: ";
-            cin >> choice;
-
-            switch (choice)
-            {
-            case 1:
-                Register();
-                break;
-            case 2:
-                DisplayStores();
-                break;
-            case 3:
-                if (!DisplayStores())
-                {
-                    break;
-                }
-                cout << endl;
-                cout << "Enter CNIC of the store to be deleted: ";
-
-                cin >> cnic;
-                deleteStore(cnic);
-                break;
-            case 4:
-                deleteAllStores();
-                break;
-            case 5:
-                if (!DisplayStores())
-                {
-                    break;
-                }
-                sendMessageToSeller();
-                break;
-            case 0:
-                cout << "Logging out..." << endl;
-                return;
-            default:
-                cout << "Invalid choice! Please try again.\n";
-            }
-        } while (choice != 0);
-    }
-
-    void sendMessageToSeller()
-    {
-        string cnic, message;
-        cout << "Enter Store CNIC to view the stats of the store : ";
-        cin >> cnic;
-
-        // Check if the store exists
-        if (stores.find(cnic) == stores.end())
-        {
-            cout << "Store not found with CNIC " << cnic << "!\n";
-            return;
-        }
-        cout << endl;
-        displayProducts(cnic);
-        cout << endl;
-        displaySalesAndEarnings(cnic);
-        cout << endl;
-
-        cout << "Enter message to send: ";
-        cin.ignore();          // Clear input buffer
-        getline(cin, message); // Allow multi-word message
-
-        // Push the message onto the store's message stack
-        stores[cnic].messages.push(message);
-        cout << endl;
-        cout << "\033[31mMessage sent successfully to store -> \033[0m" << stores[cnic].storeName << endl;
-    }
-};
-
-class ClassOfSeller : virtual Functions_Of_Stores_Related_Products, protected Functions_Of_Stores_Related_Stores
-{
-public:
-    void Menu() 
+    void Menu()
     {
         int choice;
         do
@@ -714,7 +623,7 @@ public:
             {
             case 1:
             {
-                Register();
+                RegisterStore();
                 break;
             }
             case 2:
@@ -833,12 +742,99 @@ public:
     }
 };
 
+class ClassOfAdmin : protected Functions_Of_Stores_Related_Products, protected ClassOfMenu
+{
+protected:
+    string cnic , message;
+    int choice;
+
+public:
+    void Menu()
+    {
+        do
+        {
+            cout << "\nAdmin Menu\n";
+            cout << "1. Add Store\n";
+            cout << "2. View All Stores\n";
+            cout << "3. Delete a Store\n";
+            cout << "4. Delete all Stores\n";
+            cout << "5. Send message to a store\n";
+            cout << "0. Logout\n";
+            cout << endl;
+            cout << "Enter your choice: ";
+            cin >> choice;
+
+            switch (choice)
+            {
+            case 1:
+                RegisterStore();
+                break;
+            case 2:
+                DisplayStores();
+                break;
+            case 3:
+                if (!DisplayStores())
+                {
+                    break;
+                }
+                cout << endl;
+                cout << "Enter CNIC of the store to be deleted: ";
+                cin >> cnic;
+                deleteStore(cnic);
+                break;
+            case 4:
+                deleteAllStores();
+                break;
+            case 5:
+                if (!DisplayStores())
+                {
+                    break;
+                }
+                sendMessageToSeller();
+                break;
+            case 0:
+                cout << "Logging out..." << endl;
+                return;
+            default:
+                cout << "Invalid choice! Please try again.\n";
+            }
+        } while (choice != 0);
+    }
+
+    void sendMessageToSeller()
+    {
+        cout << "Enter Store CNIC to view the stats of the store : ";
+        cin >> cnic;
+
+        // Check if the store exists
+        if (stores.find(cnic) == stores.end())
+        {
+            cout << "Store not found with CNIC " << cnic << "!\n";
+            return;
+        }
+        cout << endl;
+        displayProducts(cnic);
+        cout << endl;
+        displaySalesAndEarnings(cnic);
+        cout << endl;
+
+        cout << "Enter message to send: ";
+        cin.ignore();          // Clear input buffer
+        getline(cin, message); // Allow multi-word message
+
+        // Push the message onto the store's message stack
+        stores[cnic].messages.push(message);
+        cout << endl;
+        cout << "\033[31mMessage sent successfully to store -> \033[0m" << stores[cnic].storeName << endl;
+    }
+};
+
 int main()
 {
-    ClassOfBuyer *NewBuyer = new ClassOfBuyer();    
-    ClassOfAdmin *NewAdmin = new ClassOfAdmin();
-    ClassOfSeller *NewSeller = new ClassOfSeller();
     int choice;
+    ClassOfAdmin *Admin = new ClassOfAdmin();
+    ClassOfSeller *Seller = new ClassOfSeller();
+    ClassOfBuyer *Buyer = new ClassOfBuyer();
     do
     {
         cout << "\n\033[36mE-Commerce Inventory Management System\033[0m\n"; // Cyan for heading
@@ -854,14 +850,13 @@ int main()
         switch (choice)
         {
         case 1:
-
-            NewAdmin->Menu();
+            Admin->Menu();
             break;
         case 2:
-            NewSeller->Menu();
+            Seller->Menu();
             break;
         case 3:
-            NewBuyer->Menu();
+            Buyer->Menu();
             break;
         case 0:
             cout << "Exiting program...\n";
