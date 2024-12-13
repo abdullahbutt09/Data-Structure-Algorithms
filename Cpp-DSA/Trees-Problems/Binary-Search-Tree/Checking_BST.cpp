@@ -88,4 +88,11 @@ int main()
 3. Right and Left sub tree are also BST.
 4. No duplicate nodes in BST.
 5. In-Order Traversal of BST give assending sorted Array or Numbers.
+
+        10
+       /  \
+      5    15
+     / \   / \
+    2   7 12  20
+
 */
