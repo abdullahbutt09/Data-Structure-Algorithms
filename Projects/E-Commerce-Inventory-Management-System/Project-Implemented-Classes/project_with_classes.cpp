@@ -124,8 +124,9 @@ public:
         cout << "Product quantity updated successfully.\n";
     }
 
-    void deleteProduct(string storeCNIC)
+    void deleteProduct(string &storeCNIC)
     {
+        int productID;
         // Check if store exists
         if (stores.find(storeCNIC) == stores.end())
         {
@@ -139,7 +140,6 @@ public:
             return;
         }
         cout << endl;
-        int productID;
         cout << "Please Enter product id : ";
         cin >> productID;
 
@@ -150,9 +150,39 @@ public:
             return;
         }
 
+        int choice, quantity = 0;
+        Product &product = store.inventory[productID];
+        cout << endl;
+        cout << "1. Remove Product By Quantity Wise." << endl;
+        cout << "2. Remove Full Product." << endl;
+        cout << endl;
+        cout << "Enter your choice : ";
+        cin >> choice;
+        switch (choice)
+        {
+        case 1:
+            cout << "Enter the quantity you want to remove : ";
+            cin >> quantity;
+            if (quantity > product.quantity)
+            {
+                cout << "Requested quantity exceeds available stock.\n";
+                return;
+            }
+        // Remove the product from the inventory by quantity
+            product.quantity -= quantity;
+            cout << endl;
+            cout << "Product with ID " << productID << " and quantity " << quantity << " has been successfully removed!"<<endl;
+            break;
+        case 2:
         // Remove the product from the inventory
-        store.inventory.erase(productID);
-        cout << "Product with ID " << productID << " deleted successfully from the store '" << store.storeName << "'.\n";
+            store.inventory.erase(productID);
+            cout << endl;
+            cout << "Product with ID " << productID << " deleted successfully from the store '" << store.storeName << "'.\n";
+            break;
+        default:
+            cout << "Invalid choice!"<<endl;
+            break;
+        }
     }
 
     bool displayProducts(string storeCNIC)
@@ -599,7 +629,7 @@ public:
 };
 
 unordered_map<string, Functions_Of_Stores_Related_Products::Store>
-    Functions_Of_Stores_Related_Products::stores;
+Functions_Of_Stores_Related_Products::stores;
 
 class ClassOfSeller : protected Functions_Of_Stores_Related_Products, protected ClassOfMenu
 {
