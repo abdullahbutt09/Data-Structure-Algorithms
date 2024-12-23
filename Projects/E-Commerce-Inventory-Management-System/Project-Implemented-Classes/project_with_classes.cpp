@@ -163,6 +163,13 @@ public:
         case 1:
             cout << "Enter the quantity you want to remove : ";
             cin >> quantity;
+
+            if(quantity <= 0){
+                cout << endl;
+                cout << "Kindly Enter a Valid Quantity To Remove From 1 to " << product.quantity << " for product " << product.name << endl;
+                return;
+            }
+
             if (quantity > product.quantity)
             {
                 cout << "Requested quantity exceeds available stock.\n";
@@ -190,6 +197,7 @@ public:
         // Check if store exists
         if (stores.find(storeCNIC) == stores.end())
         {
+            cout << endl;
             cout << "Store not found!\n";
             return false;
         }
@@ -198,6 +206,7 @@ public:
 
         if (store.inventory.empty())
         {
+            cout << endl;
             cout << "No products available in the store.\n";
             return false;
         }
