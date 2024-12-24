@@ -227,6 +227,7 @@ public:
         }
 
         // Display all products
+        cout << endl;
         cout << left
              << setw(15) << "ID"
              << setw(25) << "Product Name"
@@ -388,6 +389,7 @@ public:
             return false;
         }
 
+        cout << endl;
         cout << left
              << setw(25) << "Store Name"
              << setw(20) << "Owner Name"
@@ -426,7 +428,7 @@ public:
     {
         string storeCNIC, buyerCNIC = "";
 
-        int choice , subChoice;
+        int choice , subChoice , subsubChoice;
         do
         {
             cout << endl;
@@ -455,6 +457,7 @@ public:
                     cout << "1. Purchase Product.\n";
                     cout << "2. Check Account Balance.\n";
                     cout << "0. Logout.\n";
+                    cout << endl;
                     cout << "Enter your choice: ";
                     cin >> subChoice;
 
@@ -465,17 +468,36 @@ public:
                         {
                             break;
                         }
+                        cout << endl;
                         cout << "Enter Store CNIC to view products: ";
                         cin >> storeCNIC;
                         if (!displayProducts(storeCNIC))
                         {
                             break;
                         }
+                        
+                        cout << endl;
+                        cout << "1. Input CNIC to proceed."<<endl;
+                        cout << "0. return."<<endl;
+                        cout << endl;
+                        cout << "Enter your choice : ";
+                        cin >> subsubChoice;
+                        switch (subsubChoice)
+                        {
+                        case 1:
                         cout << "Enter your CNIC to proceed: ";
                         cin >> buyerCNIC;
                         purchaseProduct(buyerCNIC);
                         break;
-                    case 3:
+                        case 0:
+                            break;
+                        default:
+                        cout << "Invalid Input!"<<endl;
+                            break;
+                        }
+                        
+                        break;
+                    case 2:
                         cout << "Enter your CNIC of your Buyer account: ";
                         cin >> buyerCNIC;
                         displayBuyerBalance(buyerCNIC);
@@ -587,7 +609,9 @@ public:
         Buyer &buyer = buyers[buyerCNIC];
 
         // Select Store
-        cout << "Available Stores:\n";
+        cout << endl;
+        cout << "Available Stores.\n";
+        cout << endl;
         DisplayStores();
         cout << endl;
         cout << "Enter the CNIC of the store you want to purchase from: ";
@@ -602,7 +626,8 @@ public:
         Store &store = stores[storeCNIC];
 
         // Input Product Details
-        cout << "Products in Store:\n";
+        cout << endl;
+        cout << "Products in Store.\n";
         cout << endl;
         displayProducts(storeCNIC);
         cout << endl;
@@ -612,6 +637,16 @@ public:
         cout << "Enter the quantity you want to purchase: ";
         cin >> quantity;
 
+        while (quantity <= 0)
+        {
+            cout << endl;
+            cout << "Purchasing Quanity cannot be negative , or 0."<<endl;
+            cout << "Kindly enter a valid quantity to purchase."<<endl;
+            cout << endl;
+            cout << "Enter the quantity you want to purchase: ";
+            cin >> quantity;
+        }
+        
         // Find Product
         if (store.inventory.find(productID) == store.inventory.end())
         {
@@ -724,7 +759,7 @@ public:
                     else
                     {
                         cout << endl;
-                        cout << "\033[31m.Login Successful , Welcome\033[0m\n";
+                        cout << "\033[31mLogin Successful , Welcome\033[0m\n";
                         isLoggedIn = true;
                     }
                 } while (!isLoggedIn);
