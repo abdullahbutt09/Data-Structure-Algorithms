@@ -6,12 +6,6 @@
 #include <string>
 using namespace std;
 
-class ClassOfMenu
-{
-protected:
-    virtual void Menu() = 0;
-};
-
 class Functions_Of_Stores_Related_Products
 {
 protected:
@@ -392,11 +386,9 @@ public:
         }
         return true;
     }
-
-    // void Menu() {}
 };
 
-class ClassOfBuyer : virtual protected Functions_Of_Stores_Related_Products, protected ClassOfMenu
+class ClassOfBuyer : virtual protected Functions_Of_Stores_Related_Products
 {
 protected:
     struct Buyer
@@ -409,7 +401,7 @@ protected:
     unordered_map<string, Buyer> buyers; // Keyed by CNIC
 
 public:
-    void Menu()
+    virtual void Menu()
     {
         string storeCNIC, buyerCNIC = "";
 
@@ -640,7 +632,7 @@ public:
 unordered_map<string, Functions_Of_Stores_Related_Products::Store>
 Functions_Of_Stores_Related_Products::stores;
 
-class ClassOfSeller : protected Functions_Of_Stores_Related_Products, protected ClassOfMenu
+class ClassOfSeller : protected Functions_Of_Stores_Related_Products
 {
 protected:
     string storeCNIC, storePassword;
@@ -781,7 +773,7 @@ public:
     }
 };
 
-class ClassOfAdmin : protected Functions_Of_Stores_Related_Products, protected ClassOfMenu
+class ClassOfAdmin : protected Functions_Of_Stores_Related_Products
 {
 protected:
     string cnic , message;
