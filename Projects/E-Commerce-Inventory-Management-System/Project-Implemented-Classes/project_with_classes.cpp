@@ -74,7 +74,7 @@ public:
             cout << "Enter Price: ";
             cin >> price;
         }
-        
+
         cout << "Enter Quantity: ";
         cin >> quantity;
 
@@ -89,8 +89,8 @@ public:
 
         // Add product to the inventory
         store.inventory[id] = {id, name, category, price, quantity, 0};
-
-        cout << "Product added successfully!\n";
+        cout << endl;
+        cout << "\033[31mProduct Added Successfully.\033[0m\n";
     }
 
     void UpdateProductsQuantity(string storeCNIC)
@@ -100,7 +100,8 @@ public:
         // Check if store exists
         if (stores.find(storeCNIC) == stores.end())
         {
-            cout << "Store not found.\n";
+            cout << endl;
+            cout << "\033[31mStore not found!.\033[0m\n";
             return;
         }
 
@@ -428,10 +429,13 @@ public:
         int choice;
         do
         {
+            cout << endl;
             cout << "\nBuyer Menu\n";
+            cout << endl;
             cout << "1. Register as Buyer\n";
             cout << "2. Login as Buyer\n";
             cout << "0. Return\n";
+            cout << endl;
             cout << "Enter your choice: ";
             cin >> choice;
 
@@ -545,7 +549,9 @@ public:
 
             if (buyer.password == password)
             {
-                cout << "Login successful! Welcome, " << buyer.name << ".\n";
+                cout << endl;
+                // cout << "Login successful! Welcome, " << buyer.name << ".\n";
+                cout << "\033[31mLogin successful! Welcome, .\033[0m" << buyer.name << endl;
                 return true; // Exit on successful login
             }
             else
@@ -664,9 +670,11 @@ public:
         do
         {
             cout << "\nSeller Menu\n";
+            cout << endl;
             cout << "1. Register a Store\n";
             cout << "2. Login to Store\n";
             cout << "0. Back\n";
+            cout << endl;
             cout << "Enter your choice: ";
             cin >> choice;
 
@@ -692,7 +700,8 @@ public:
                     auto storeIt = stores.find(storeCNIC);
                     if (storeIt == stores.end())
                     {
-                        cout << "Store not found! Please check your CNIC.\n";
+                        cout << endl;
+                        cout << "\033[31mStore not found! Please check your CNIC.\033[0m\n";
                         break;
                     }
 
@@ -707,7 +716,8 @@ public:
                     }
                     else
                     {
-                        cout << "Login Successful!\n";
+                        cout << endl;
+                        cout << "\033[31m.Login Successful , Welcome\033[0m\n";
                         isLoggedIn = true;
                     }
                 } while (!isLoggedIn);
@@ -719,12 +729,14 @@ public:
                     do
                     {
                         cout << "\nStore Menu\n";
+                        cout << endl;
                         cout << "1. Add Product\n";
                         cout << "2. View Products\n";
                         cout << "3. Delete a Product\n";
                         cout << "4. View Earnings\n";
                         cout << "5. View Messages from Admin\n";
                         cout << "0. Logout\n";
+                        cout << endl;
                         cout << "Enter your choice: ";
                         cin >> storeChoice;
 
@@ -805,6 +817,7 @@ public:
         do
         {
             cout << "\nAdmin Menu\n";
+            cout << endl;
             cout << "1. Add Store\n";
             cout << "2. View All Stores\n";
             cout << "3. Delete a Store\n";
