@@ -426,7 +426,7 @@ public:
     {
         string storeCNIC, buyerCNIC = "";
 
-        int choice;
+        int choice , subChoice;
         do
         {
             cout << endl;
@@ -450,13 +450,11 @@ public:
                     break;
                 }
                 cout << endl;
-                int subChoice;
                 do
                 {
-                    cout << "1. View Stores\n";
-                    cout << "2. Rate a Store\n";
-                    cout << "3. Check Account Balance\n";
-                    cout << "0. Logout\n";
+                    cout << "1. Purchase Product.\n";
+                    cout << "2. Check Account Balance.\n";
+                    cout << "0. Logout.\n";
                     cout << "Enter your choice: ";
                     cin >> subChoice;
 
@@ -476,9 +474,6 @@ public:
                         cout << "Enter your CNIC to proceed: ";
                         cin >> buyerCNIC;
                         purchaseProduct(buyerCNIC);
-                        break;
-                    case 2:
-                        // giveRatingToStore(buyerCNIC);
                         break;
                     case 3:
                         cout << "Enter your CNIC of your Buyer account: ";
@@ -517,6 +512,17 @@ public:
         cout << "Enter Initial Balance: ";
         cin >> balance;
 
+        while (balance <= 0)
+        {
+            cout << endl;
+            cout << "Initial Balance cannot be negative , or 0"<<endl;
+            cout << "Kindly Enter a valid Balance"<< endl;
+            cout << endl;
+            cout << "Enter Initial Balance: ";
+            cin >> balance;
+        }
+        
+
         // Check if buyer with the same CNIC already exists
         if (buyers.find(cnic) != buyers.end())
         {
@@ -527,6 +533,7 @@ public:
         // Add the new buyer to the unordered_map
         buyers[cnic] = {name, cnic, password, balance};
 
+        cout << endl;
         cout << "Buyer registered successfully!\n";
         return true;
     }
@@ -551,7 +558,7 @@ public:
             {
                 cout << endl;
                 // cout << "Login successful! Welcome, " << buyer.name << ".\n";
-                cout << "\033[31mLogin successful! Welcome, .\033[0m" << buyer.name << endl;
+                cout << "\033[31mLogin successful! Welcome, \033[0m" << buyer.name << endl;
                 return true; // Exit on successful login
             }
             else
