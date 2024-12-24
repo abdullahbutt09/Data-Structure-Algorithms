@@ -65,8 +65,27 @@ public:
         cin >> category;
         cout << "Enter Price: ";
         cin >> price;
+
+        while (price <= 0)
+        {
+            cout << endl;
+            cout << "Price cannot be negative , or 0." << endl;
+            cout << endl;
+            cout << "Enter Price: ";
+            cin >> price;
+        }
+        
         cout << "Enter Quantity: ";
         cin >> quantity;
+
+        while (quantity <= 0)
+        {
+            cout << endl;
+            cout << "Quanity cannot be negative , or 0." << endl;
+            cout << endl;
+            cout << "Enter Quantity: ";
+            cin >> quantity;
+        }
 
         // Add product to the inventory
         store.inventory[id] = {id, name, category, price, quantity, 0};
@@ -158,7 +177,8 @@ public:
             cout << "Enter the quantity you want to remove : ";
             cin >> quantity;
 
-            if(quantity <= 0){
+            if (quantity <= 0)
+            {
                 cout << endl;
                 cout << "Kindly Enter a Valid Quantity To Remove From 1 to " << product.quantity << " for product " << product.name << endl;
                 return;
@@ -169,19 +189,19 @@ public:
                 cout << "Requested quantity exceeds available stock.\n";
                 return;
             }
-        // Remove the product from the inventory by quantity
+            // Remove the product from the inventory by quantity
             product.quantity -= quantity;
             cout << endl;
-            cout << "Product with ID " << productID << " and quantity " << quantity << " has been successfully removed!"<<endl;
+            cout << "Product with ID " << productID << " and quantity " << quantity << " has been successfully removed!" << endl;
             break;
         case 2:
-        // Remove the product from the inventory
+            // Remove the product from the inventory
             store.inventory.erase(productID);
             cout << endl;
             cout << "Product with ID " << productID << " deleted successfully from the store '" << store.storeName << "'.\n";
             break;
         default:
-            cout << "Invalid choice!"<<endl;
+            cout << "Invalid choice!" << endl;
             break;
         }
     }
@@ -630,7 +650,7 @@ public:
 };
 
 unordered_map<string, Functions_Of_Stores_Related_Products::Store>
-Functions_Of_Stores_Related_Products::stores;
+    Functions_Of_Stores_Related_Products::stores;
 
 class ClassOfSeller : protected Functions_Of_Stores_Related_Products
 {
@@ -776,7 +796,7 @@ public:
 class ClassOfAdmin : protected Functions_Of_Stores_Related_Products
 {
 protected:
-    string cnic , message;
+    string cnic, message;
     int choice;
 
 public:
