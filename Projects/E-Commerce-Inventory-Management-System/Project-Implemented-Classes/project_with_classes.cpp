@@ -428,7 +428,7 @@ public:
     {
         string storeCNIC, buyerCNIC = "";
 
-        int choice , subChoice , subsubChoice;
+        int choice, subChoice, subsubChoice;
         do
         {
             cout << endl;
@@ -475,27 +475,27 @@ public:
                         {
                             break;
                         }
-                        
+
                         cout << endl;
-                        cout << "1. Input CNIC to proceed."<<endl;
-                        cout << "0. return."<<endl;
+                        cout << "1. Input CNIC to proceed." << endl;
+                        cout << "0. return." << endl;
                         cout << endl;
                         cout << "Enter your choice : ";
                         cin >> subsubChoice;
                         switch (subsubChoice)
                         {
                         case 1:
-                        cout << "Enter your CNIC to proceed: ";
-                        cin >> buyerCNIC;
-                        purchaseProduct(buyerCNIC);
-                        break;
+                            cout << "Enter your CNIC to proceed: ";
+                            cin >> buyerCNIC;
+                            purchaseProduct(buyerCNIC);
+                            break;
                         case 0:
                             break;
                         default:
-                        cout << "Invalid Input!"<<endl;
+                            cout << "Invalid Input!" << endl;
                             break;
                         }
-                        
+
                         break;
                     case 2:
                         cout << "Enter your CNIC of your Buyer account: ";
@@ -537,13 +537,12 @@ public:
         while (balance <= 0)
         {
             cout << endl;
-            cout << "Initial Balance cannot be negative , or 0"<<endl;
-            cout << "Kindly Enter a valid Balance"<< endl;
+            cout << "Initial Balance cannot be negative , or 0" << endl;
+            cout << "Kindly Enter a valid Balance" << endl;
             cout << endl;
             cout << "Enter Initial Balance: ";
             cin >> balance;
         }
-        
 
         // Check if buyer with the same CNIC already exists
         if (buyers.find(cnic) != buyers.end())
@@ -640,13 +639,13 @@ public:
         while (quantity <= 0)
         {
             cout << endl;
-            cout << "Purchasing Quanity cannot be negative , or 0."<<endl;
-            cout << "Kindly enter a valid quantity to purchase."<<endl;
+            cout << "Purchasing Quanity cannot be negative , or 0." << endl;
+            cout << "Kindly enter a valid quantity to purchase." << endl;
             cout << endl;
             cout << "Enter the quantity you want to purchase: ";
             cin >> quantity;
         }
-        
+
         // Find Product
         if (store.inventory.find(productID) == store.inventory.end())
         {
@@ -956,15 +955,19 @@ int main()
         switch (choice)
         {
         case 1:
+            system("cls");
             Admin->Menu();
             break;
         case 2:
+            system("cls");
             Seller->Menu();
             break;
         case 3:
+            system("cls");
             Buyer->Menu();
             break;
         case 0:
+            system("cls");
             cout << "Exiting program...\n";
             break;
         default:
