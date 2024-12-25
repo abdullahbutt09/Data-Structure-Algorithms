@@ -943,7 +943,7 @@ int main()
     ClassOfBuyer *Buyer = new ClassOfBuyer();
     do
     {
-        cout << "\n\033[36mE-Commerce Inventory Management System\033[0m\n"; // Cyan for heading
+        cout << "\n \t \t \t \033[36mE-Commerce Inventory Management System\033[0m\n"; // Cyan for heading
         cout << endl;
         cout << "\033[32m1. Admin\033[0m\n";  // Green
         cout << "\033[35m2. Seller\033[0m\n"; // Magenta
