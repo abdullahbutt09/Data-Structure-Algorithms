@@ -142,7 +142,8 @@ void DeleteEndNode1()
         return;
     }
 
-    if (head->next == nullptr) {
+    if (head->next == nullptr)
+    {
         // Only one node in the list
         delete head;
         head = nullptr;
@@ -178,8 +179,83 @@ void DeleteEndNode2()
     delete temp->next;
 }
 
-void DeleteSpecificPosition(int position){
-    // last function remaining
+void DeleteSpecificPosition(int position)
+{
+    node *temp = head;
+
+    if (head == nullptr || position <= 0)
+    {
+        cout << "List is empty or Position out of bounds.\n";
+        return;
+    }
+
+    if (position == 1)
+    {
+        DeleteFrontNode();
+        return;
+    }
+
+    for (int i = 1; i < position; i++)
+    {
+        temp = temp->next;
+    }
+
+    if (temp == nullptr)
+    {
+        cout << "Position out of bounds.\n";
+        return;
+    }
+
+    if (temp->next == nullptr)
+    {
+        DeleteEndNode1();
+        return;
+    }
+
+    temp->prev->next = temp->next;
+    temp->next->prev = temp->prev;
+    delete temp;
+}
+
+void SearchElement(int key)
+{
+    node *temp = head;
+    node *ptr = head;
+    bool found = false;
+
+    while (temp != nullptr)
+    {
+        if (temp->data == key)
+        {
+            found = true;
+            cout << endl;
+            cout << "Key found in right side!" << endl;
+            break;
+        }
+        temp = temp->next;
+    }
+
+    while (ptr->next != nullptr)
+    {
+        ptr = ptr->next;
+    }
+
+    while (ptr != nullptr)
+    {
+        if (ptr->data == key)
+        {
+            found = true;
+            cout << endl;
+            cout << "Key found in left side!" << endl;
+            break;
+        }
+        ptr = ptr->prev;
+    }
+    if (!found)
+    {
+        cout << endl;
+        cout << "Element not found in both left or right side!" << endl;
+    }
 }
 
 int main()
@@ -190,9 +266,7 @@ int main()
     InsertNodeEnd(85);
     InsertNodeEnd(100);
 
-    PrintList();
-    DeleteSpecificPosition(5);
-    PrintList();
+    SearchElement(85);
 
     cout << endl;
     return 0;
