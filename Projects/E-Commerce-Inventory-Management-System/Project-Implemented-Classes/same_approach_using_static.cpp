@@ -470,7 +470,7 @@ public:
             cout << "0. Return\n";
             cout << endl;
             cout << "Enter your choice: ";
-            cin >> choice;
+            choice = _getch() - '0';
 
             switch (choice)
             {
@@ -491,7 +491,7 @@ public:
                     cout << "0. Logout.\n";
                     cout << endl;
                     cout << "Enter your choice: ";
-                    cin >> subChoice;
+                    subChoice = _getch() - '0';
 
                     switch (subChoice)
                     {
@@ -515,7 +515,7 @@ public:
                         cout << "0. return." << endl;
                         cout << endl;
                         cout << "Enter your choice : ";
-                        cin >> subsubChoice;
+                        subsubChoice = _getch() - '0';
                         switch (subsubChoice)
                         {
                         case 1:
@@ -892,7 +892,7 @@ public:
                         cout << "0. Logout\n";
                         cout << endl;
                         cout << "Enter your choice: ";
-                        cin >> storeChoice;
+                        storeChoice = _getch() - '0';
 
                         switch (storeChoice)
                         {
@@ -1112,6 +1112,7 @@ int main()
     ClassOfBuyer *Buyer = new ClassOfBuyer();
     do
     {
+        system("cls");
         cout << "\n \t \t \t \033[36mE-Commerce Inventory Management System\033[0m\n"; // Cyan for heading
         cout << endl;
         cout << "\033[32m1. Admin\033[0m\n";  // Green
