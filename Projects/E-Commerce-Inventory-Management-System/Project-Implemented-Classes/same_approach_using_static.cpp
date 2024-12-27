@@ -255,9 +255,9 @@ public:
 
     bool RegisterStore()
     {
+        system("cls");
         string storeName, ownerName, cnic, password;
         char ch;
-        system("cls");
         cout << "Enter Store Name: ";
         getline(cin, storeName);
         cout << "Enter Owner Name: ";
@@ -803,16 +803,16 @@ public:
             cout << "0. Back" << endl;
             cout << endl;
             cout << "Enter your choice: ";
-
-            choice = _getch(); 
+            
+            choice = _getch() - '0'; 
             switch (choice)
             {
-            case '1':
+            case 1:
             {
                 RegisterStore();
                 break;
             }
-            case '2':
+            case 2:
             {
                 string storeCNIC, storePassword;
                 bool isLoggedIn = false;
@@ -928,7 +928,7 @@ public:
                 }
                 break;
             }
-            case '0':
+            case 0:
                 cout << "Returning to main menu...\n";
                 system("cls");
                 return;
@@ -1018,7 +1018,7 @@ public:
         cout << "Access Granted! Welcome Admin.\n";
         do
         {
-            cout << "\nAdmin Menu\n";
+            cout << "Admin Menu\n";
             cout << endl;
             cout << "1. Add Store\n";
             cout << "2. View All Stores\n";
@@ -1034,6 +1034,7 @@ public:
             switch (choice)
             {
             case 1:
+                cin.ignore();
                 RegisterStore();
                 break;
             case 2:
