@@ -63,7 +63,6 @@ void TakeDataFromUser(node *&root)
 
 void FindHighSmallElementInBST(node *root)
 {
-
     node *RightPart = root;
     node *LeftPart = root;
 
@@ -121,7 +120,7 @@ node *DeleteFromBST(node *root, int data)
 
         // case 2 have further 2 more cases
 
-        // case 2.1 left is null right not null
+        // case 2.1 left is not null and right is null
         else if (root->right == nullptr && root->left != nullptr)
         {
             node *temp = root->left;
@@ -134,7 +133,7 @@ node *DeleteFromBST(node *root, int data)
             */
         }
 
-        // case 2.2 left is not null right is null
+        // case 2.2 left is null right is not null
         else if (root->right != nullptr && root->left == nullptr)
         {
             node *temp = root->right;
@@ -147,7 +146,7 @@ node *DeleteFromBST(node *root, int data)
             */
         }
 
-        // last case if right and left both not null
+        // last case if right and left both are not null
         else 
         {
             // is case mein apko left tree say high value lani hogi ya phr right say low value lani hogi to maintain bst order!
