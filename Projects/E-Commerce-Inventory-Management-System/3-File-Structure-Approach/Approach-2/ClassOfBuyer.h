@@ -331,12 +331,77 @@ public:
 
     void displayBuyerBalance(const string &cnic)
     {
+        float updatedBalance;
+        int choice;
         // Check if buyer exists in the unordered_map
         if (buyers.find(cnic) != buyers.end())
         {
             const Buyer &buyer = buyers[cnic];
+            cout << endl;
             cout << "Hello, " << buyer.name << "!" << endl;
+            cout << endl;
+            cout << "Your CNIC is: " << buyer.cnic << endl;
+            cout << endl;
             cout << "Your current balance is: $" << fixed << setprecision(2) << buyer.balance << endl;
+            if(buyer.balance < 50)
+            {
+                cout << endl;
+                cout << "Your balance is Below 50$." << endl;
+                cout << "Do you want to update your balance ? "<<endl;
+                cout << endl;
+                cout << "1. Yes" << endl;
+                cout << "0. No" << endl;
+                cout << endl;
+                cout << "Enter your choice: ";
+                choice = _getch() - '0';
+                switch (choice)
+                {   
+                    case 1:
+                        system("cls");
+                        cout << "Enter the amount you want to add to your balance: ";
+                        cin >> updatedBalance;
+
+                        while (updatedBalance < buyer.balance)
+                        {
+                            cout << endl;
+                            cout << "You think you are smart?" << endl << "Your Current Balance is " << buyer.balance << "$"<< endl;
+                            cout << "You want to add balance of " << updatedBalance << "$" << endl;
+                            cout << "Kindly Enter a valid Balance!" << endl;
+                            cout << endl;
+                            cout << "Enter Initial Balance: ";
+                            cin >> updatedBalance;
+                        }
+
+                        while (updatedBalance <= 0)
+                        {
+                            cout << endl;
+                            cout << "Balance cannot be negative , or 0" << endl;
+                            cout << "Kindly Enter a valid Balance" << endl;
+                            cout << endl;
+                            cout << "Enter Initial Balance: ";
+                            cin >> updatedBalance;
+                        }
+                        
+                        buyers[cnic].balance += updatedBalance;
+                        system("cls");
+                        cout << endl;
+                        cout << "Balance Updated Successfully!" << endl;
+                        cout << "Your new balance is: $" << fixed << setprecision(2) << buyers[cnic].balance << endl;
+                        cout << endl;
+                        break;
+                    case 0:
+                    cout << endl;
+                        system("cls");
+                        cout << "Returning Back!" << endl;
+                    cout << endl;
+                        break;
+                    default:
+                    cout << endl;
+                        cout << "Invalid Input!" << endl;
+                    cout << endl;
+                        break;
+                }
+            }
         }
         else
         {
