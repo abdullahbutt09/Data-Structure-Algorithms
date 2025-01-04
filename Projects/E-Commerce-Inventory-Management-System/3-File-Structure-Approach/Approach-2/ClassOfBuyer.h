@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class ClassOfBuyer : virtual protected ClassOfProducts , protected ClassOfStores
+class ClassOfBuyer : virtual protected ClassOfProducts, protected ClassOfStores
 {
 protected:
     struct Buyer
@@ -130,8 +130,72 @@ public:
         cin.ignore(); // Clear input buffer
         getline(cin, name);
         cout << "Enter Buyer CNIC: ";
-        cin >> cnic;
-        cout << "Enter Your Password: ";
+
+        while (true)
+        {
+            ch = _getch(); // Get a single character without requiring Enter
+
+            if (ch == '\b')
+            { // Backspace key (ASCII 8)
+                if (!cnic.empty())
+                {
+                    cnic.pop_back(); // Remove the last character from the string
+                    cout << "\b \b"; // Move back, print a space to overwrite, then move back again
+                }
+            }
+            else if (ch == '\r')
+            { // Enter key (ASCII 13)
+                if (cnic.length() != 9)
+                {
+                    cout << endl;
+                    cout << "\nYour CNIC Length cannot be " << cnic.length() << endl;
+                    cout << "Please enter an 9 digit CNIC number!" << endl;
+                    cout << "Enter CNIC : ";
+                    cnic.clear();
+                }
+
+                else
+                {
+                    break;
+                }
+            }
+            else if (isalpha(ch))
+            { // Check if the character is an alphabet
+                cout << endl;
+                cout << "\nYour CNIC Cannot Include Alphabets!" << endl;
+                cout << "Kindly Enter Only Numbers!" << endl;
+                cout << endl;
+                cout << "Please Enter Valid CNIC : ";
+                cnic.clear(); // Clear the cnic buffer
+            }
+            else if (cnic.length() == 9)
+            {
+                cout << endl;
+                cout << "\nYour CNIC cannot Greater than 9 numbers!" << endl;
+                cout << "Kindly Only 9 Digit CNIC Number!" << endl;
+                cout << endl;
+                cnic.clear();
+                cout << "Enter CNIC: ";
+            }
+            else
+            {
+                cnic += ch; // Append character to the cnic
+                cout << ch; // Echo the character
+            }
+
+            // Check if buyer with the same CNIC already exists
+            if (buyers.find(cnic) != buyers.end())
+            {
+                cout << endl;
+                cout << "\nBuyer with CNIC " << cnic << " already exists!\n";
+                cout << "Please use a different CNIC for registration.\n";
+                cout << endl;
+                cnic.clear();
+                cout << "Enter CNIC: ";
+            }
+        }
+
+        cout << "\nEnter Your Password: ";
 
         while (true)
         {
@@ -139,8 +203,21 @@ public:
 
             if (ch == '\r')
             {
-                cout << endl;
-                break;
+                if (password.length() < 8)
+                {
+                    cout << endl;
+                    cout << "\nYour password length cannot be " << password.length() << "!" << endl;
+                    cout << "Sir your password length should be 8 or more than 8 characters!" << endl;
+                    cout << endl;
+                    cout << "Enter Password : ";
+                    password.clear();
+                }
+
+                else
+                {
+                    cout << endl;
+                    break;
+                }
             }
             else if (ch == '\b')
             {
@@ -168,13 +245,6 @@ public:
             cout << endl;
             cout << "Enter Initial Balance: ";
             cin >> balance;
-        }
-
-        // Check if buyer with the same CNIC already exists
-        if (buyers.find(cnic) != buyers.end())
-        {
-            cout << "Buyer with CNIC " << cnic << " already exists!\n";
-            return false;
         }
 
         // Add the new buyer to the unordered_map
@@ -343,11 +413,11 @@ public:
             cout << "Your CNIC is: " << buyer.cnic << endl;
             cout << endl;
             cout << "Your current balance is: $" << fixed << setprecision(2) << buyer.balance << endl;
-            if(buyer.balance < 50)
+            if (buyer.balance < 50)
             {
                 cout << endl;
                 cout << "Your balance is Below 50$." << endl;
-                cout << "Do you want to update your balance ? "<<endl;
+                cout << "Do you want to update your balance ? " << endl;
                 cout << endl;
                 cout << "1. Yes" << endl;
                 cout << "0. No" << endl;
@@ -355,51 +425,52 @@ public:
                 cout << "Enter your choice: ";
                 choice = _getch() - '0';
                 switch (choice)
-                {   
-                    case 1:
-                        system("cls");
-                        cout << "Enter the amount you want to add to your balance: ";
+                {
+                case 1:
+                    system("cls");
+                    cout << "Enter the amount you want to add to your balance: ";
+                    cin >> updatedBalance;
+
+                    while (updatedBalance < buyer.balance)
+                    {
+                        cout << endl;
+                        cout << "You think you are smart?" << endl
+                             << "Your Current Balance is " << buyer.balance << "$" << endl;
+                        cout << "You want to add balance of " << updatedBalance << "$" << endl;
+                        cout << "Kindly Enter a valid Balance!" << endl;
+                        cout << endl;
+                        cout << "Enter Initial Balance: ";
                         cin >> updatedBalance;
+                    }
 
-                        while (updatedBalance < buyer.balance)
-                        {
-                            cout << endl;
-                            cout << "You think you are smart?" << endl << "Your Current Balance is " << buyer.balance << "$"<< endl;
-                            cout << "You want to add balance of " << updatedBalance << "$" << endl;
-                            cout << "Kindly Enter a valid Balance!" << endl;
-                            cout << endl;
-                            cout << "Enter Initial Balance: ";
-                            cin >> updatedBalance;
-                        }
+                    while (updatedBalance <= 0)
+                    {
+                        cout << endl;
+                        cout << "Balance cannot be negative , or 0" << endl;
+                        cout << "Kindly Enter a valid Balance" << endl;
+                        cout << endl;
+                        cout << "Enter Initial Balance: ";
+                        cin >> updatedBalance;
+                    }
 
-                        while (updatedBalance <= 0)
-                        {
-                            cout << endl;
-                            cout << "Balance cannot be negative , or 0" << endl;
-                            cout << "Kindly Enter a valid Balance" << endl;
-                            cout << endl;
-                            cout << "Enter Initial Balance: ";
-                            cin >> updatedBalance;
-                        }
-                        
-                        buyers[cnic].balance += updatedBalance;
-                        system("cls");
-                        cout << endl;
-                        cout << "Balance Updated Successfully!" << endl;
-                        cout << "Your new balance is: $" << fixed << setprecision(2) << buyers[cnic].balance << endl;
-                        cout << endl;
-                        break;
-                    case 0:
+                    buyers[cnic].balance += updatedBalance;
+                    system("cls");
                     cout << endl;
-                        system("cls");
-                        cout << "Returning Back!" << endl;
+                    cout << "Balance Updated Successfully!" << endl;
+                    cout << "Your new balance is: $" << fixed << setprecision(2) << buyers[cnic].balance << endl;
                     cout << endl;
-                        break;
-                    default:
+                    break;
+                case 0:
                     cout << endl;
-                        cout << "Invalid Input!" << endl;
+                    system("cls");
+                    cout << "Returning Back!" << endl;
                     cout << endl;
-                        break;
+                    break;
+                default:
+                    cout << endl;
+                    cout << "Invalid Input!" << endl;
+                    cout << endl;
+                    break;
                 }
             }
         }

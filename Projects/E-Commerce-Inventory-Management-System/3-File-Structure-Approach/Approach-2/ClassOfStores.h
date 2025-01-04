@@ -1,11 +1,11 @@
-#include<iostream>
+#include <iostream>
 #include "HeaderFilesUsed.h"
 #include "ClassOfProducts.h"
 
 class ClassOfStores : virtual protected ClassOfProducts
 {
-    public:
-        bool RegisterStore()
+public:
+    bool RegisterStore()
     {
         system("cls");
         string storeName, ownerName, cnic, password;
@@ -15,17 +15,70 @@ class ClassOfStores : virtual protected ClassOfProducts
         cout << "Enter Owner Name: ";
         getline(cin, ownerName);
         cout << "Enter CNIC: ";
-        cin >> cnic;
 
-        while (stores.find(cnic) != stores.end())
+        while (true)
         {
-            cout << "Store with this CNIC already exists!\n";
-            cout << "Please use a different CNIC for registration\n";
-            cout << "Enter CNIC: ";
-            cin >> cnic;
+            ch = _getch(); // Get a single character without requiring Enter
+
+            if (ch == '\b')
+            { // Backspace key (ASCII 8)
+                if (!cnic.empty())
+                {
+                    cnic.pop_back(); // Remove the last character from the string
+                    cout << "\b \b"; // Move back, print a space to overwrite, then move back again
+                }
+            }
+            else if (ch == '\r')
+            { // Enter key (ASCII 13)
+                if (cnic.length() != 9)
+                {
+                    cout << endl;
+                    cout << "\nYour CNIC Length cannot be " << cnic.length() << endl;
+                    cout << "Please enter an 9 digit CNIC number!" << endl;
+                    cout << "Enter CNIC : ";
+                    cnic.clear();
+                }
+
+                else
+                {
+                    break;
+                }
+            }
+            else if (isalpha(ch))
+            { // Check if the character is an alphabet
+                cout << endl;
+                cout << "\nYour CNIC Cannot Include Alphabets!" << endl;
+                cout << "Kindly Enter Only Numbers!" << endl;
+                cout << endl;
+                cout << "Please Enter Valid CNIC : ";
+                cnic.clear(); // Clear the cnic buffer
+            }
+            else if (cnic.length() == 9)
+            {
+                cout << endl;
+                cout << "\nYour CNIC cannot Greater than 9 numbers!" << endl;
+                cout << "Kindly Only 9 Digit CNIC Number : ";
+                cout << endl;
+                cnic.clear();
+            }
+            else
+            {
+                cnic += ch; // Append character to the cnic
+                cout << ch; // Echo the character
+            }
+
+            if (stores.find(cnic) != stores.end())
+            {
+                cout << endl;
+                cout << "\nStore with this CNIC already exists!\n";
+                cout << "Please use a different CNIC for registration\n";
+                cout << endl;
+                cnic.clear();
+                cout << "Enter CNIC: ";
+            }
         }
 
-        cout << "Enter Password: ";
+        cout << "\nEnter Password: ";
 
         while (true)
         {
@@ -33,8 +86,21 @@ class ClassOfStores : virtual protected ClassOfProducts
 
             if (ch == '\r')
             {
-                cout << endl;
-                break;
+                if (password.length() < 8)
+                {
+                    cout << endl;
+                    cout << "\nYour password length cannot be " << password.length() << "!" << endl;
+                    cout << "Sir your password length should be 8 or more than 8 characters!" << endl;
+                    cout << endl;
+                    cout << "Enter Password : ";
+                    password.clear();
+                }
+
+                else
+                {
+                    cout << endl;
+                    break;
+                }
             }
             else if (ch == '\b')
             {

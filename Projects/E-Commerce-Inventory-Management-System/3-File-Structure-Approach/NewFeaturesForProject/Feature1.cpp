@@ -28,8 +28,8 @@ int main()
         { // Enter key (ASCII 13)
             if (input.length() != 9)
             {
-                cout << "\nYour Password Length cannot be " << input.length() << endl;
-                cout << "Please enter an 9 digit length number : ";
+                cout << "\nYour CNIC Length cannot be " << input.length() << endl;
+                cout << "Please enter an 9 digit CNIC number : ";
                 input.clear();
             }
 
@@ -49,7 +49,7 @@ int main()
         else if (input.length() == 9)
         {
             cout << "\nYour CNIC cannot Greater than 9 numbers!" << endl;
-            cout << "Kindly Only Enter Only 9 Digit CNIC Number : ";
+            cout << "Kindly Only 9 Digit CNIC Number : ";
             input.clear();
         }
         else

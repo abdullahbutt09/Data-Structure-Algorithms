@@ -5,5 +5,6 @@
 #include <cstdlib> //for adding colors to the font!
 #include <string>
 #include <conio.h>
+#include <cctype>
 
 #pragma once
