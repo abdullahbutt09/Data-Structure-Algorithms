@@ -153,7 +153,6 @@ public:
                     cout << "Enter CNIC : ";
                     cnic.clear();
                 }
-
                 else
                 {
                     break;
@@ -163,6 +162,15 @@ public:
             { // Check if the character is an alphabet
                 cout << endl;
                 cout << "\nYour CNIC Cannot Include Alphabets!" << endl;
+                cout << "Kindly Enter Only Numbers!" << endl;
+                cout << endl;
+                cout << "Please Enter Valid CNIC : ";
+                cnic.clear(); // Clear the cnic buffer
+            }
+            else if (!isdigit(ch))
+            { // Check if the character is not a digit
+                cout << endl;
+                cout << "\nYour CNIC Cannot Include Special Symbols!" << endl;
                 cout << "Kindly Enter Only Numbers!" << endl;
                 cout << endl;
                 cout << "Please Enter Valid CNIC : ";

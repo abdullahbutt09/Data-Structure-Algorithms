@@ -53,12 +53,23 @@ public:
                 cout << "Please Enter Valid CNIC : ";
                 cnic.clear(); // Clear the cnic buffer
             }
+
+            else if (!isdigit(ch))
+            { // Check if the character is not a digit
+                cout << endl;
+                cout << "\nYour CNIC Cannot Include Special Symbols!" << endl;
+                cout << "Kindly Enter Only Numbers!" << endl;
+                cout << endl;
+                cout << "Please Enter Valid CNIC : ";
+                cnic.clear(); // Clear the cnic buffer
+            }
+
             else if (cnic.length() == 9)
             {
                 cout << endl;
                 cout << "\nYour CNIC cannot Greater than 9 numbers!" << endl;
-                cout << "Kindly Only 9 Digit CNIC Number : ";
                 cout << endl;
+                cout << "Kindly Only 9 Digit CNIC Number : ";
                 cnic.clear();
             }
             else
